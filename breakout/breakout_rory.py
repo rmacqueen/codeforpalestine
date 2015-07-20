@@ -1,3 +1,10 @@
+"""
+Breakout game.
+
+Bouncing and movement functions taken from this particle simulation: http://www.petercollingridge.co.uk/book/export/html/6
+Pygame installed for Python3 on Mac (Yosemite) from this tutorial: https://jamesfriend.com.au/installing-pygame-python-3-mac-os-yosemite
+"""
+
 import pygame
 
 BRICKS_PER_ROW = 10
@@ -60,8 +67,8 @@ class Ball(object):
 
     def __init__(self):
         self.radius = BALL_RADIUS
-        self.x_velocity = 1
-        self.y_velocity = 1
+        self.x_velocity = 10
+        self.y_velocity = 10
         self.x = SCREEN_WIDTH / 2
         self.y = SCREEN_HEIGHT / 2
 
@@ -134,7 +141,7 @@ class Breakout(object):
 
         # Draw the paddle, ball, and wall of bricks
         pygame.draw.rect(self.screen, PADDLE_COLOR, (self.paddle.x, self.paddle.y, self.paddle.width, self.paddle.height))
-        pygame.draw.circle(self.screen, BALL_COLOR, (self.ball.x, self.ball.y), self.ball.get_radius())
+        pygame.draw.circle(self.screen, BALL_COLOR, (int(self.ball.x), int(self.ball.y)), self.ball.get_radius())
         for brick in self.bricks:
             pygame.draw.rect(self.screen, BRICK_COLOR, (brick.x, brick.y, BRICK_WIDTH, BRICK_HEIGHT), 0)
 
@@ -143,7 +150,7 @@ class Breakout(object):
 
     def play(self):
         while self.lives > 0:
-            self.clock.tick(500)
+            # self.clock.tick(30)
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT:
@@ -168,7 +175,7 @@ class Breakout(object):
             # with a new ball.
             if (self.ball.y > SCREEN_HEIGHT):
                 self.lives -= 1
-                self.ball = Ball()
+                # self.ball = Ball()
 
             # Redraw everything at the end of the while loop
             self.draw_objects()

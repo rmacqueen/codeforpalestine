@@ -176,7 +176,7 @@ class Breakout():
                     self.paddle.move(event.pos)
 
             if lives == 0:
-                self.screen.blit(self.loseText, (200, 200))
+                self.screen.blit(selfloseText, (200, 200))
                 pygame.display.update()
 
             elif len(self.bricks) == 0:
