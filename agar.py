@@ -2,7 +2,7 @@ import palgame
 
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 700
-NUM_BALLS = 5
+NUM_CELLS = 5
 NUM_FOOD = 20
 
 RED = (255, 0, 0)
@@ -16,20 +16,20 @@ y = SCREEN_HEIGHT / 2
 
 xdir = 1
 ydir = 1
-balls = []
+cells = []
 food = []
 
-for a in range(NUM_BALLS):
-	balls.append(palgame.get_random_ball())
+for a in range(NUM_CELLS):
+	cells.append(palgame.get_random_ball())
 
 for c in range(NUM_FOOD):
 	food.append(palgame.get_random_food())
 
-def update_ball_position(ball, speed):
-	x = palgame.get_x(ball)
-	y = palgame.get_y(ball)
-	xdir = palgame.get_xdir(ball)
-	ydir = palgame.get_ydir(ball)
+def update_cell_position(cell, speed):
+	x = palgame.get_x(cell)
+	y = palgame.get_y(cell)
+	xdir = palgame.get_xdir(cell)
+	ydir = palgame.get_ydir(cell)
 
 	if x > SCREEN_WIDTH or x < 0:
 		xdir = -1 * xdir
@@ -38,39 +38,39 @@ def update_ball_position(ball, speed):
 	x = x + xdir * speed
 	y = y + ydir * speed
 
-	palgame.set_x(ball, x)
-	palgame.set_y(ball, y)
-	palgame.set_xdir(ball, xdir)
-	palgame.set_ydir(ball, ydir)
+	palgame.set_x(cell, x)
+	palgame.set_y(cell, y)
+	palgame.set_xdir(cell, xdir)
+	palgame.set_ydir(cell, ydir)
 
-def update_user_ball_position(ball):
-	vx, vy = palgame.get_user_direction(palgame.get_x(ball), palgame.get_y(ball), palgame.get_radius(ball))
-	new_x = palgame.get_x(ball) + vx
-	palgame.set_x(ball, new_x)
-	new_y = palgame.get_y(ball) + vy
-	palgame.set_y(ball, new_y)
+def update_user_cell_position(cell):
+	vx, vy = palgame.get_user_direction(palgame.get_x(cell), palgame.get_y(cell), palgame.get_radius(cell))
+	new_x = palgame.get_x(cell) + vx
+	palgame.set_x(cell, new_x)
+	new_y = palgame.get_y(cell) + vy
+	palgame.set_y(cell, new_y)
 
-def balls_collide(ball1, ball2):
-	if ( abs(palgame.get_x(ball2) - palgame.get_x(ball1)) < (palgame.get_radius(ball2) + palgame.get_radius(ball1))
-		and abs(palgame.get_y(ball2) - palgame.get_y(ball1)) < (palgame.get_radius(ball2) + palgame.get_radius(ball1)) ):
+def cells_collide(cell1, cell2):
+	if ( abs(palgame.get_x(cell2) - palgame.get_x(cell1)) < (palgame.get_radius(cell2) + palgame.get_radius(cell1))
+		and abs(palgame.get_y(cell2) - palgame.get_y(cell1)) < (palgame.get_radius(cell2) + palgame.get_radius(cell1)) ):
 		return True
 	else:
 		return False
 
 def eat_cells(cell):
-	for b in range(NUM_BALLS):
-		other_ball = balls[b]
-		if a != b and balls_collide(ball, other_ball):
-			radius = palgame.get_radius(ball)
-			if radius >= palgame.get_radius(other_ball):
+	for b in range(NUM_CELLS):
+		other_cell = cells[b]
+		if a != b and cells_collide(cell, other_cell):
+			radius = palgame.get_radius(cell)
+			if radius >= palgame.get_radius(other_cell):
 				new_radius = radius + (1 - radius / 100)
-				palgame.set_radius(ball, new_radius)
-				balls[b] = palgame.get_random_ball()
+				palgame.set_radius(cell, new_radius)
+				cells[b] = palgame.get_random_ball()
 
 def eat_food(cell):
 	for f in range(NUM_FOOD):
 		nom = food[f]
-		if balls_collide(cell, nom):
+		if cells_collide(cell, nom):
 			new_radius = palgame.get_radius(cell) + (1 - palgame.get_radius(cell) / 100)
 			palgame.set_radius(cell, new_radius)
 			food[f] = palgame.get_random_food()
@@ -78,7 +78,7 @@ def eat_food(cell):
 def draw_objects():
 	for f in food:
 		palgame.draw_circle(palgame.get_x(f), palgame.get_y(f), palgame.get_radius(f), BLUE)
-	for i, b in enumerate(balls):
+	for i, b in enumerate(cells):
 		if i == 0:
 			color = GREEN
 		else:
@@ -88,18 +88,30 @@ def draw_objects():
 while True:
 	palgame.get_event()
 
-	for a in range(NUM_BALLS):
-		ball = balls[a]
-		speed = palgame.get_speed(palgame.get_radius(ball))
+	for a in range(NUM_CELLS):
+		cell = cells[a]
+		speed = palgame.get_speed(palgame.get_radius(cell))
+		### Right code here that will update the user's ball
+		### and update all the other balls. Make sure you first
+		### fill in the update_user_ball_position() and update_ball_position
+		### functions and then call them here.
 		if a == 0:
-			update_user_ball_position(ball)
+			update_user_cell_position(cell)
 		else:
-			update_ball_position(ball, speed)
+			update_cell_position(cell, speed)
 
-		eat_food(ball)
+		### Now we want to eat the food. Fill in the eat_food function
+		### and then call it here
+		eat_food(cell)
 
-		eat_cells(ball)
+		### Now we want to eat the other cells. Fill in the eat_cells function
+		### and then call it here
+		eat_cells(cell)
 
 	palgame.clear_screen()
+
+	### Now we want to actually draw all our objects to the screen
+	### Fill in the draw_objects function. Make sure to draw all the
+	### cells and all the food
 	draw_objects()
 	palgame.draw_everything()
