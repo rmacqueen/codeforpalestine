@@ -25,6 +25,9 @@ for a in range(NUM_CELLS):
 for c in range(NUM_FOOD):
 	food.append(palgame.get_random_food())
 
+first_cell = palgame.get_random_ball()
+user_cell = palgame.get_random_user()
+
 def update_cell_position(cell, speed):
 	pass
 
@@ -43,30 +46,29 @@ def eat_food(cell):
 def draw_objects():
 	pass
 
+
 while True:
 	palgame.get_event()
 
-	for a in range(NUM_CELLS):
-		cell = cells[a]
 
-		### Right code here that will update the user's ball
-		### and update all the other balls. Make sure you first
-		### fill in the update_user_ball_position() and update_ball_position
-		### functions and then call them here.
+	### Write code here that will update the user's cell
+	### and update all the other cells. Make sure you first
+	### fill in the update_user_ball_position() and update_ball_position
+	### functions and then call them here.
 
 
-		### Now we want to eat the food. Fill in the eat_food function
-		### and then call it here
+	### Now we want to eat the food. Fill in the eat_food function
+	### and then call it here
 
 
-		### Now we want to eat the other cells. Fill in the eat_cells function
-		### and then call it here
+	### Now we want to eat the other cells. Fill in the eat_cells function
+	### and then call it here
 
 
 	palgame.clear_screen()
 
-	### Now we want to actually draw all our objects to the screen
+	### Now we want to actually draw all our objects to the screen.
 	### Fill in the draw_objects function. Make sure to draw all the
-	### cells and all the food
+	### cells and all the food.
 
 	palgame.draw_everything()

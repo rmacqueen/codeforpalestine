@@ -25,6 +25,8 @@ for a in range(NUM_CELLS):
 for c in range(NUM_FOOD):
 	food.append(palgame.get_random_food())
 
+first_cell = palgame.get_random_ball()
+
 def update_cell_position(cell, speed):
 	x = palgame.get_x(cell)
 	y = palgame.get_y(cell)
@@ -60,7 +62,7 @@ def cells_collide(cell1, cell2):
 def eat_cells(cell):
 	for b in range(NUM_CELLS):
 		other_cell = cells[b]
-		if a != b and cells_collide(cell, other_cell):
+		if cell != other_cell and cells_collide(cell, other_cell):
 			radius = palgame.get_radius(cell)
 			if radius >= palgame.get_radius(other_cell):
 				new_radius = radius + (1 - radius / 100)

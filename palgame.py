@@ -76,6 +76,11 @@ def get_random_food():
 		random.randint(0, SCREEN_HEIGHT), 
 		5]
 
+def get_random_user():
+	ball = get_random_ball()
+	set_radius(ball, 3)
+	return ball
+
 def get_speed(radius):
 	return 1 + int(50 / (radius * 0.3))
 
