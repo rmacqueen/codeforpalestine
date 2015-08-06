@@ -33,10 +33,13 @@ def get_event():
 def get_mouse_location():
     return pygame.mouse.get_pos()
 
-# Returns the direction for the user cell as (xdir, ydir). To use:
-# user_direction = get_user_direction(user_x, user_y, user_radius)
-# user_xdir = user_direction[0]
-# user_ydir = user_direction[1]
+# Returns the direction for the user cell as (xdir, ydir). Uses the user location,
+# user radius, and mouse location to figure out the speed of the user. Using
+# that, figures out the x-direction and y-direction of the user cell.
+# To use:
+# 	user_direction = get_user_direction(user_x, user_y, user_radius)
+# 	user_xdir = user_direction[0]
+# 	user_ydir = user_direction[1]
 def get_user_direction(user_x, user_y, user_radius):
 	mouse_location = get_mouse_location()
 	mouse_x = mouse_location[0]
