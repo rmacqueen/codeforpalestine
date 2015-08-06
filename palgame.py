@@ -67,17 +67,6 @@ def get_random_food():
 def get_speed(radius):
 	return 1 + int(50 / (radius * 0.3))
 
-def get_vx(speed, mx, my, x, y):
-	if abs(mx - x) <= 1 or abs(my - y) <= 1:
-		return 0
-	return (speed * (mx - x) / math.sqrt((mx - x)**2 + (my - y)**2))
-
-def get_vy(speed, mx, my, x, y):
-	if abs(mx - x) <= 1 or abs(my - y) <= 1:
-		return 0
-	return (speed * (my - y) / math.sqrt((mx - x)**2 + (my - y)**2))
-
-
 # Returns the location of the mouse as (x, y). For example:
 # event = get_mouse_location()
 # print "x: " + event[0] + ", y: " + event[1]
@@ -99,12 +88,12 @@ def get_user_direction(user_x, user_y, user_radius):
 	user_speed = get_speed(user_radius)
 	distance = math.sqrt((mouse_x - user_x)**2 + (mouse_y - user_y)**2)
 
-	if abs(mouse_x - user_x) < radius:
+	if abs(mouse_x - user_x) < user_radius:
 		xdir = 0
 	else:
 		xdir = int(user_speed * (mouse_x - user_x) / distance)
 
-	if abs(mouse_y - user_y) < radius:
+	if abs(mouse_y - user_y) < user_radius:
 		ydir = 0
 	else:
 		ydir = int(user_speed * (mouse_y - user_y) / distance)

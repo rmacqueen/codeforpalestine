@@ -19,7 +19,6 @@ ydir = 1
 balls = []
 food = []
 
-
 for a in range(NUM_BALLS):
 	balls.append(palgame.get_random_ball())
 
@@ -50,10 +49,10 @@ while True:
 		ball = balls[a]
 		speed = palgame.get_speed(palgame.get_radius(ball))
 		if a == 0:
-			mx, my = palgame.get_mouse_location()
-			new_x = palgame.get_x(ball) + int(palgame.get_vx(speed, mx, my, palgame.get_x(ball), palgame.get_y(ball)))
+			vx, vy = palgame.get_user_direction(palgame.get_x(ball), palgame.get_y(ball), palgame.get_radius(ball))
+			new_x = palgame.get_x(ball) + vx
 			palgame.set_x(ball, new_x)
-			new_y = palgame.get_y(ball) + int(palgame.get_vy(speed, mx, my, palgame.get_x(ball), palgame.get_y(ball)))
+			new_y = palgame.get_y(ball) + vy
 			palgame.set_y(ball, new_y)
 		else:
 			ball = update_ball_position(ball, speed)
