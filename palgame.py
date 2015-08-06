@@ -47,6 +47,18 @@ def set_x(ball, x):
 def set_y(ball, y):
 	ball[1] = y
 
+def get_xdir(ball):
+	return ball[3]
+
+def get_ydir(ball):
+	return ball[4]
+
+def set_xdir(ball, xdir):
+	ball[3] = xdir
+
+def set_ydir(ball, ydir):
+	ball[4] = ydir
+
 def get_radius(ball):
 	return ball[2]
 
