@@ -1,4 +1,4 @@
-import pygame, sys
+import pygame, sys, math
 BALL_COLOR = (255, 0, 0)
 SCREEN_COLOR = (100, 100, 100)
 
@@ -32,3 +32,27 @@ def get_event():
 # print "x: " + event[0] + ", y: " + event[1]
 def get_mouse_location():
     return pygame.mouse.get_pos()
+
+# Returns the direction for the user cell as (xdir, ydir). To use:
+# user_direction = get_user_direction(user_x, user_y, user_radius)
+# user_xdir = user_direction[0]
+# user_ydir = user_direction[1]
+def get_user_direction(user_x, user_y, user_radius):
+	mouse_location = get_mouse_location()
+	mouse_x = mouse_location[0]
+	mouse_y = mouse_location[1]
+
+	user_speed = get_speed(user_radius)
+	distance = math.sqrt((mouse_x - user_x)**2 + (mouse_y - user_y)**2)
+
+	if abs(mouse_x - user_x) < radius:
+		xdir = 0
+	else:
+		xdir = int(user_speed * (mouse_x - user_x) / distance)
+
+	if abs(mouse_y - user_y) < radius:
+		ydir = 0
+	else:
+		ydir = int(user_speed * (mouse_y - user_y) / distance)
+
+	return (xdir, ydir)
