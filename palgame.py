@@ -26,3 +26,9 @@ def get_event():
 	for e in pygame.event.get():
 		if e.type == pygame.QUIT:
 			sys.exit(0)
+
+# Returns the location of the mouse as (x, y). For example:
+# event = get_mouse_location()
+# print "x: " + event[0] + ", y: " + event[1]
+def get_mouse_location():
+    return pygame.mouse.get_pos()
