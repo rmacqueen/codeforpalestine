@@ -25,6 +25,8 @@ for a in range(NUM_CELLS):
 for c in range(NUM_FOOD):
 	food.append(palgame.get_random_food())
 
+first_cell = palgame.get_random_ball()
+
 def update_cell_position(cell, speed):
 	x = palgame.get_x(cell)
 	y = palgame.get_y(cell)
