@@ -28,21 +28,28 @@ for c in range(NUM_FOOD):
 first_cell = palgame.get_random_ball()
 user_cell = palgame.get_random_user()
 
+# This function updates the position of any cell.
 def update_cell_position(cell, speed):
 	pass
 
+# This function updates the position of only the user cell.
 def update_user_cell_position(cell):
 	pass
 
+# This function returns True if cell1 and cell2 have collided, and False otherwise.
 def cells_collide(cell1, cell2):
 	pass
 
+# This function allows the cell to eat smaller cells that it reaches. It can be used with any cell.
 def eat_cells(cell):
 	pass
 
+# This function allows the cell to eat nearby food. It can be used with any cell.
 def eat_food(cell):
 	pass
 
+# This function draws all of the cells and food by calling palgame.draw_circle,
+# and using their x, y, and radius values.
 def draw_objects():
 	pass
 
