@@ -53,43 +53,7 @@ def draw_objects(paddle, ball, bricks):
 Play
 """
 def play(paddle, ball, bricks, start):   
-    start = False
-    # Setup the while loop condition (Hont: running) and assign a value for 'lives'
-    # TODO
-    while running:
-        # If number of lives left is 0, break out of the while loop
-        # TODO
 
-        # Setup the mouse events 
-        # DO NOT change this code
-        for event in pygame.event.get():
-            # If you click the mouse, the ball will start moving 
-            if pygame.mouse.get_pressed() == (1, 0, 0):
-                start = True 
-
-        if start == True:
-            # Make the ball update its position. 
-            pass
-
-        # Update the position of the paddle based on the mouse
-        # TODO 
-            
-        # Check for collisions using breakout.ball_did_collide_with(obj, brick, width, height) 
-        # TODO 
-
-        # If ball went out of bounds, we lose a life, and start
-        # with a new ball.
-        # TODO 
-
-        # If bricks are over, you won! 
-        # TODO 
-
-        # Else, loop through the entire bricks array to see if the ball collided with any brick 
-        # TODO 
-
-        # Redraw everything at the end of the while loop
-
-    pygame.display.update()
 
 #The following function will draw the set of bricks at the top of the screen. 
 def build_bricks():
@@ -100,12 +64,47 @@ def build_bricks():
 
 
 
-if __name__ == '__main__':
-    # Creating the screen 
-    breakout.build_screen(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT)
+# Creating the screen 
+breakout.build_screen(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT)
 
-    # Create the ball, paddle, bricks and lives here 
+# Create the ball, paddle, bricks and lives here 
+# TODO
+
+running = True
+start = False
+
+# TODO
+while running:
+    # If number of lives left is 0, break out of the while loop
     # TODO
 
-    # Call function play here and pass in required variables 
-    # TODO
+    # Setup the mouse events 
+    # DO NOT change this code
+    for event in pygame.event.get():
+        # If you click the mouse, the ball will start moving 
+        if pygame.mouse.get_pressed() == (1, 0, 0):
+            start = True 
+
+    if start == True:
+        # Make the ball update its position. 
+        pass
+
+    # Update the position of the paddle based on the mouse
+    # TODO 
+        
+    # Check for collisions using breakout.ball_did_collide_with(obj, brick, width, height) 
+    # TODO 
+
+    # If ball went out of bounds, we lose a life, and start
+    # with a new ball.
+    # TODO 
+
+    # If bricks are over, you won! 
+    # TODO 
+
+    # Else, loop through the entire bricks array to see if the ball collided with any brick 
+    # TODO 
+
+    # Redraw everything at the end of the while loop
+
+pygame.display.update()

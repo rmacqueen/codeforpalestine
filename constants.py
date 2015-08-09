@@ -27,6 +27,3 @@ GREEN = (0, 255, 0)
 ORANGE = (255, 153, 0)
 RED = (255, 0, 0)
 BLACK = (0,0,0)
-
-def clamp(n, min_n, max_n):
-    return max(min(max_n, n), min_n)
