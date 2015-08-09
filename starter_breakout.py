@@ -38,7 +38,7 @@ def ball_bounce_off_brick(ball, brick):
     pass
 
 # Render all objects on screen using pygame draw methods
-def draw_objects(paddle, ball, bricks):
+def draw_objects():
     # First wipe canvas clean by calling breakout.clear_screen()
     # TODO
 
@@ -103,5 +103,6 @@ while running:
     # TODO 
 
     # Redraw everything at the end of the while loop
+    draw_objects()
 
 pygame.display.update()
