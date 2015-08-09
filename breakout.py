@@ -2,6 +2,7 @@
 
 import pygame
 import constants
+import random 
 
 
 
@@ -26,7 +27,8 @@ class Ball(object):
 
     def __init__(self):
         self.radius = constants.BALL_RADIUS
-        self.x_velocity = 10
+        velocity_list = [10, -10]
+        self.x_velocity = random.choice(velocity_list)
         self.y_velocity = 10
         self.x = constants.SCREEN_WIDTH / 2
         self.y = constants.SCREEN_HEIGHT / 2
@@ -48,7 +50,6 @@ class Brick(object):
 
 def create_new_ball():
 	return Ball()
-
 
 def create_new_paddle():
 	return Paddle()
@@ -109,26 +110,38 @@ def set_radius(self, r):
 def set_color(self, c):
     self.color = c
 
-
-
 def clamp(n, min_n, max_n):
     return max(min(max_n, n), min_n)
 
+def draw_rectangle(obj):
+	pygame.draw.rect(screen, get_color(obj), (get_x(obj), get_y(obj), get_width(obj), get_height(obj)))
 
-    # Render all objects on screen using pygame draw methods
-def draw_objects(screen, paddle, ball, bricks):
-    # First wipe canvas clean
-    screen.fill(constants.SCREEN_COLOR)
+def draw_circle(obj):
+	pygame.draw.circle(screen, get_color(obj), (int(get_x(obj)), int(get_y(obj))), get_radius(obj))
 
-    # Draw the paddle, ball, and wall of bricks
-    pygame.draw.rect(screen, constants.PADDLE_COLOR, (get_x(paddle), get_y(paddle), get_width(paddle), get_height(paddle)))
-    pygame.draw.circle(screen, constants.BALL_COLOR, (int(get_x(ball)), int(get_y(ball))), get_radius(ball))
-    for brick in bricks:
-        
-        pygame.draw.rect(screen, get_color(brick), (get_x(brick), get_y(brick), constants.BRICK_WIDTH, constants.BRICK_HEIGHT), 0)
-    # Tell pygame to actually redraw everything
-
-    pygame.display.flip()
-
-def get_mouse_position():
+def get_mouse_location():
     return pygame.mouse.get_pos();
+
+
+# This function creates the window for the game. It should be called at
+# the beginning of your program.
+def build_screen(width, height):
+	pygame.init()
+	global screen
+	screen = pygame.display.set_mode((width, height))
+
+
+# This function wipes the screen clean by filling it with a color.
+# This lets you draw new objects, or make objects look like they've moved.
+def clear_screen():
+	screen.fill(constants.SCREEN_COLOR)
+
+# Check and see if the ball and another obj collided with each other 
+def ball_did_collide_with(obj, brick, width, height):
+    dist = 1.41*get_radius(obj)
+    if (int(get_x(obj) - dist) in range(get_x(brick), get_x(brick) + width) and int(get_y(obj) - dist) in range(get_y(brick), get_y(brick) + height)) \
+    or (int(get_x(obj) + dist) in range(get_x(brick), get_x(brick) + width) and int(get_y(obj) - dist) in range(get_y(brick), get_y(brick) + height)) \
+    or (int(get_x(obj) + dist) in range(get_x(brick), get_x(brick) + width) and int(get_y(obj) + dist) in range(get_y(brick), get_y(brick) + height)) \
+    or (int(get_x(obj) - dist) in range(get_x(brick), get_x(brick) + width) and int(get_y(obj) + dist) in range(get_y(brick), get_y(brick) + height)): 
+        return True 
+    return False

@@ -18,6 +18,7 @@ screen = None
 def build_screen(width, height):
 	global screen
 	screen = pygame.display.set_mode((width, height))
+	pygame.display.set_caption('Breakout')
 
 # This function draws a circle.
 def draw_circle(x, y, radius, color):

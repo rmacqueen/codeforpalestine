@@ -14,7 +14,7 @@ Paddle: Methods
 # Update the position of the paddle. It is confined to the boundaries
 # of the screen
 def paddle_update_position(paddle):
-    coordinates =  breakout.get_mouse_position()
+    coordinates =  breakout.get_mouse_location()
     x = coordinates[0]
     breakout.set_x(paddle, constants.clamp(x + breakout.get_x_velocity(paddle), 0, constants.SCREEN_WIDTH - breakout.get_width(paddle)))
 
@@ -41,31 +41,26 @@ def ball_update_position(ball):
         breakout.set_y_velocity(ball, -breakout.get_y_velocity(ball))
 
 def ball_bounce_off_paddle(ball, paddle):
-    breakout.set_y_velocity(ball, -breakout.get_y_velocity(ball))
+    breakout.set_y_velocity(ball, -abs(breakout.get_y_velocity(ball)))
 
-# If we hit a brick, bounce off in the right direction depending on
-# whether we hit the brick from the side or from on top/below
 def ball_bounce_off_brick(ball, brick):
-    # We hit the brick from on top or from below so change y direction
-    #if breakout.get_y(ball) in range(breakout.get_y(brick), breakout.get_y(brick) + breakout.get_height(brick)):
-    if breakout.get_x(ball) + breakout.get_radius(ball) >= breakout.get_x(brick) and breakout.get_x(ball) - breakout.get_radius(ball) <= breakout.get_x(brick) + breakout.get_width(brick):
-        x_v = breakout.get_x_velocity(ball)
-        breakout.set_x_velocity(ball, -x_v)
+    y_v = breakout.get_y_velocity(ball)
+    breakout.set_y_velocity(ball, -y_v)
 
-    # We hit the brick from the side so change x direction
-    # if breakout.get_x(ball) in range(breakout.get_x(brick), breakout.get_x(brick) + breakout.get_width(brick)):
-    if breakout.get_y(ball) + breakout.get_radius(ball) >= breakout.get_y(brick) and breakout.get_y(ball) - breakout.get_radius(ball) < breakout.get_y(brick) + breakout.get_height(brick):
-        y_v = breakout.get_y_velocity(ball)
-        breakout.set_y_velocity(ball, -y_v)  
-
-
-# Check and see if the ball and another obj collided with each other 
-def ball_did_collide_with(ball, obj):
-    if breakout.get_x(ball) + breakout.get_radius(ball) >= breakout.get_x(obj) and breakout.get_x(ball) - breakout.get_radius(ball) <= breakout.get_x(obj) + breakout.get_width(obj) and breakout.get_y(ball) + breakout.get_radius(ball) >= breakout.get_y(obj) and breakout.get_y(ball) - breakout.get_radius(ball) < breakout.get_y(obj) + breakout.get_height(obj):
-        return True 
+# Render all objects on screen using pygame draw methods
+def draw_objects(paddle, ball, bricks):
+    # First wipe canvas clean
+    breakout.clear_screen()
+    # Draw the paddle, ball, and wall of bricks
+    breakout.draw_rectangle(paddle)
+    breakout.draw_circle(ball)
+    for brick in bricks:
+        breakout.draw_rectangle(brick)
+    # Tell pygame to actually redraw everything
+    pygame.display.flip()
 
 
-def play(screen, paddle, ball, bricks, start):
+def play(paddle, ball, bricks, start):
     running = True
     lives = constants.NUM_LIVES
     while running:
@@ -73,11 +68,9 @@ def play(screen, paddle, ball, bricks, start):
             running = False
 
         #Setup the keyboard events 
-        for event in pygame.event.get():
-            # If you press the up key, the ball will start moving 
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP:
-                    start = True            
+        for event in pygame.event.get():     
+            if pygame.mouse.get_pressed() == (1, 0, 0):
+                start = True        
             if event.type == pygame.QUIT:
                 running = False
 
@@ -89,7 +82,7 @@ def play(screen, paddle, ball, bricks, start):
         paddle_update_position(paddle)
         
         #Check for collisions 
-        if ball_did_collide_with(ball, paddle):
+        if breakout.ball_did_collide_with(ball, paddle, constants.PADDLE_WIDTH, constants.PADDLE_HEIGHT):
             ball_bounce_off_paddle(ball, paddle)
 
         # If ball went out of bounds, we lose a life, and start
@@ -106,13 +99,13 @@ def play(screen, paddle, ball, bricks, start):
         # Else, loop through the entire bricks array to see if the ball collided with any brick 
         else:
             for brick in bricks:
-                if  ball_did_collide_with(ball, brick):
+                if  breakout.ball_did_collide_with(ball, brick, constants.BRICK_WIDTH, constants.BRICK_HEIGHT):
                     ball_bounce_off_brick(ball, brick)
                     bricks.remove(brick)
 
 
         # Redraw everything at the end of the while loop
-        breakout.draw_objects(screen, paddle, ball, bricks)
+        draw_objects(paddle, ball, bricks)
 
     pygame.display.update()
 
@@ -156,10 +149,7 @@ def build_bricks():
 if __name__ == '__main__':
 
     #Ignore the following code
-    pygame.init()
-    screen = pygame.display.set_mode((constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
-    pygame.display.set_caption('Breakout')
-    clock = pygame.time.Clock()
+    breakout.build_screen(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT)
 
     #Create the ball, paddle, bricks, boolean start and lives here 
     lives = constants.NUM_LIVES
@@ -169,5 +159,5 @@ if __name__ == '__main__':
     start = False
 
     # Call function play here and pass in required variables 
-    play(screen, paddle, ball, bricks, start)
+    play(paddle, ball, bricks, start)
 
