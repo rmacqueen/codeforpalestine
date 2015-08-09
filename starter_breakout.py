@@ -78,6 +78,9 @@ while running:
         # If you click the mouse, the ball will start moving 
         if pygame.mouse.get_pressed() == (1, 0, 0):
             start = True 
+        if event.type == pygame.QUIT:
+            running = False
+
 
     if start == True:
         # Make the ball update its position. 
