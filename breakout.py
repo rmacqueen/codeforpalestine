@@ -137,11 +137,11 @@ def clear_screen():
 	screen.fill(constants.SCREEN_COLOR)
 
 # Check and see if the ball and another obj collided with each other 
-def ball_did_collide_with(obj, brick, width, height):
-    dist = 1.41*get_radius(obj)
-    if (int(get_x(obj) - dist) in range(get_x(brick), get_x(brick) + width) and int(get_y(obj) - dist) in range(get_y(brick), get_y(brick) + height)) \
-    or (int(get_x(obj) + dist) in range(get_x(brick), get_x(brick) + width) and int(get_y(obj) - dist) in range(get_y(brick), get_y(brick) + height)) \
-    or (int(get_x(obj) + dist) in range(get_x(brick), get_x(brick) + width) and int(get_y(obj) + dist) in range(get_y(brick), get_y(brick) + height)) \
-    or (int(get_x(obj) - dist) in range(get_x(brick), get_x(brick) + width) and int(get_y(obj) + dist) in range(get_y(brick), get_y(brick) + height)): 
+def ball_did_collide_with(ball, obj, width, height):
+    dist = 1.41*get_radius(ball)
+    if (int(get_x(ball) - dist) in range(get_x(obj), get_x(obj) + width) and int(get_y(ball) - dist) in range(get_y(obj), get_y(obj) + height)) \
+    or (int(get_x(ball) + dist) in range(get_x(obj), get_x(obj) + width) and int(get_y(ball) - dist) in range(get_y(obj), get_y(obj) + height)) \
+    or (int(get_x(ball) + dist) in range(get_x(obj), get_x(obj) + width) and int(get_y(ball) + dist) in range(get_y(obj), get_y(obj) + height)) \
+    or (int(get_x(ball) - dist) in range(get_x(obj), get_x(obj) + width) and int(get_y(ball) + dist) in range(get_y(obj), get_y(obj) + height)): 
         return True 
     return False

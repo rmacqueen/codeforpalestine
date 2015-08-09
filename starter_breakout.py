@@ -107,8 +107,5 @@ if __name__ == '__main__':
     # Create the ball, paddle, bricks and lives here 
     # TODO
 
-    # Create a boolean variable here to control when the ball starts moving 
-    # TODO
-
     # Call function play here and pass in required variables 
     # TODO
