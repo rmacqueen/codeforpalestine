@@ -49,10 +49,10 @@ def draw_objects(paddle, ball, bricks):
     # First wipe canvas clean
     breakout.clear_screen()
     # Draw the paddle, ball, and wall of bricks
-    breakout.draw_rectangle(paddle)
-    breakout.draw_circle(ball)
+    breakout.draw_rectangle(breakout.get_x(paddle), breakout.get_y(paddle), breakout.get_width(paddle), breakout.get_height(paddle), breakout.get_color(paddle))
+    breakout.draw_circle(breakout.get_x(ball), breakout.get_y(ball), breakout.get_radius(ball), breakout.get_color(ball))
     for brick in bricks:
-        breakout.draw_rectangle(brick)
+        breakout.draw_rectangle(breakout.get_x(brick), breakout.get_y(brick), breakout.get_width(brick), breakout.get_height(brick), breakout.get_color(brick))
     # Tell pygame to actually redraw everything
     pygame.display.flip()
 

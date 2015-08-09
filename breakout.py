@@ -113,11 +113,11 @@ def set_color(self, c):
 def clamp(n, min_n, max_n):
     return max(min(max_n, n), min_n)
 
-def draw_rectangle(obj):
-	pygame.draw.rect(screen, get_color(obj), (get_x(obj), get_y(obj), get_width(obj), get_height(obj)))
+def draw_rectangle(x, y, width, height, color):
+	pygame.draw.rect(screen, color, (x, y, width, height))
 
-def draw_circle(obj):
-	pygame.draw.circle(screen, get_color(obj), (int(get_x(obj)), int(get_y(obj))), get_radius(obj))
+def draw_circle(x, y, radius, color):
+	pygame.draw.circle(screen, color, (int(x), int(y)), radius)
 
 def get_mouse_location():
     return pygame.mouse.get_pos();
