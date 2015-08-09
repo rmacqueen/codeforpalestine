@@ -10,67 +10,45 @@ import math
 import breakout
 import constants
 
-def clamp(n, min_n, max_n):
-    return max(min(max_n, n), min_n)
-
 """
 Paddle: Methods
 """
 # Update the position of the paddle. It is confined to the boundaries
 # of the screen
 def paddle_update_position(paddle):
-    coordinates =  breakout.get_mouse_position()
-    x = coordinates[0]
-    breakout.set_x(paddle, constants.clamp(x + breakout.get_x_velocity(paddle), 0, constants.SCREEN_WIDTH - breakout.get_width(paddle)))
+    pass
 
 """
 Ball: Methods
 """
 
+# This function must update the coordinates of the ball and changes the direction of the ball bounces of either the left, top, or right walls 
 def ball_update_position(ball):
-    x = breakout.get_x(ball)
-    y = breakout.get_y(ball)
-    x += breakout.get_x_velocity(ball)
-    y += breakout.get_y_velocity(ball)
-    breakout.set_x(ball, x)
-    breakout.set_y(ball, y)
+    pass
+    #TODO
 
-    # If it hits the side walls, bounce off them
-    if breakout.get_x(ball) >= constants.SCREEN_WIDTH:
-        breakout.set_x_velocity(ball, -breakout.get_x_velocity(ball))
-    if breakout.get_x(ball) < 0:
-        breakout.set_x_velocity(ball, -breakout.get_x_velocity(ball))
-
-    # If it hits the ceiling, bounce off it
-    if breakout.get_y(ball) < 0:
-        breakout.set_y_velocity(ball, -breakout.get_y_velocity(ball))
-
+# This function will chnage the direction of the ball when it hits the paddle 
 def ball_bounce_off_paddle(ball, paddle):
-    breakout.set_y_velocity(ball, -breakout.get_y_velocity(ball))
+    pass
 
 # If we hit a brick, bounce off in the right direction depending on
 # whether we hit the brick from the side or from on top/below
 def ball_bounce_off_brick(ball, brick):
     # We hit the brick from on top or from below so change y direction
-    #if breakout.get_y(ball) in range(breakout.get_y(brick), breakout.get_y(brick) + breakout.get_height(brick)):
-    if breakout.get_x(ball) + breakout.get_radius(ball) >= breakout.get_x(brick) and breakout.get_x(ball) - breakout.get_radius(ball) <= breakout.get_x(brick) + breakout.get_width(brick):
-        x_v = breakout.get_x_velocity(ball)
-        breakout.set_x_velocity(ball, -x_v)
-
     # We hit the brick from the side so change x direction
-    # if breakout.get_x(ball) in range(breakout.get_x(brick), breakout.get_x(brick) + breakout.get_width(brick)):
-    if breakout.get_y(ball) + breakout.get_radius(ball) >= breakout.get_y(brick) and breakout.get_y(ball) - breakout.get_radius(ball) < breakout.get_y(brick) + breakout.get_height(brick):
-        y_v = breakout.get_y_velocity(ball)
-        breakout.set_y_velocity(ball, -y_v)  
-
+    pass
 
 # Check and see if the ball and another obj collided with each other 
 def ball_did_collide_with(ball, obj):
-    if breakout.get_x(ball) + breakout.get_radius(ball) >= breakout.get_x(obj) and breakout.get_x(ball) - breakout.get_radius(ball) <= breakout.get_x(obj) + breakout.get_width(obj) and breakout.get_y(ball) + breakout.get_radius(ball) >= breakout.get_y(obj) and breakout.get_y(ball) - breakout.get_radius(ball) < breakout.get_y(obj) + breakout.get_height(obj):
-        return True 
+    pass
 
 
-def play(screen, paddle, ball, bricks, start):
+"""
+Play
+"""
+def play(screen, paddle, ball, bricks, start): 
+    pass  
+    
     running = True
     lives = constants.NUM_LIVES
     while running:
@@ -121,7 +99,7 @@ def play(screen, paddle, ball, bricks, start):
 
     pygame.display.update()
 
-    #Wait for event to exit screen
+    #Wait for event to exit screen 
     event =  pygame.event.wait()
     if event.type == pygame.QUIT:
         pygame.quit()
@@ -130,32 +108,10 @@ def play(screen, paddle, ball, bricks, start):
 # The following function will draw the set of bricks at the top of the screen. 
 def build_bricks():
     #Create an empty array
-    bricks = []
-    for row in range(constants.NUM_ROWS):
-        for col in range(constants.BRICKS_PER_ROW):
-            x_position = constants.GAP + (col * (constants.BRICK_WIDTH + constants.GAP))
-            y_position = row* (constants.BRICK_HEIGHT + constants.GAP)
+    # Hint: You need a double for loop to draw the set of bricks on top. Set the brick color based on row number by using the colors in the constants.py
+    # file (You can add other colors if you wish). When you create a new brick and set the x,y, and color 
+    pass
 
-            # Set the brick color based on row number 
-            color = None
-            if (row == 0 or row == 1):
-                color = constants.RED
-            elif (row == 2 or row  == 3):
-                color = constants.ORANGE
-            elif (row  == 4 or row  == 5):
-                color = constants.GREEN
-            elif (row == 6 or row  == 7):
-                color = constants.YELLOcol
-            else: 
-                color = constants.YELLOW
-
-            #Create a new brick and set the x,y, and color 
-            b = breakout.create_new_brick()
-            breakout.set_x(b, x_position)
-            breakout.set_y(b, y_position)
-            breakout.set_color(b, color)
-            bricks.append(b)
-    return bricks
 
 
 if __name__ == '__main__':
@@ -167,11 +123,8 @@ if __name__ == '__main__':
     clock = pygame.time.Clock()
 
     #Create the ball, paddle, bricks and lives here 
-    lives = constants.NUM_LIVES
-    paddle = breakout.create_new_paddle()
-    ball = breakout.create_new_ball()
-    bricks = build_bricks();
+   
+    # Create a boolean variable here to control when the ball starts moving 
 
-    start = False
-    play(screen, paddle, ball, bricks, start)
+    # Call function play here and pass in required variables 
 

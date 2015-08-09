@@ -111,6 +111,9 @@ def set_color(self, c):
 
 
 
+def clamp(n, min_n, max_n):
+    return max(min(max_n, n), min_n)
+
 
     # Render all objects on screen using pygame draw methods
 def draw_objects(screen, paddle, ball, bricks):
