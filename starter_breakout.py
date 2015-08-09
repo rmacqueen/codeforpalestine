@@ -49,12 +49,6 @@ def draw_objects(paddle, ball, bricks):
     pygame.display.flip()
 
 
-"""
-Play
-"""
-def play(paddle, ball, bricks, start):   
-
-
 #The following function will draw the set of bricks at the top of the screen. 
 def build_bricks():
     # Create an empty array

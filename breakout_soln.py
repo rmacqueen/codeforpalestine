@@ -40,12 +40,9 @@ def ball_update_position(ball):
     if breakout.get_y(ball) < 0:
         breakout.set_y_velocity(ball, -breakout.get_y_velocity(ball))
 
-def ball_bounce_off_paddle(ball, paddle):
+def ball_bounce_off(ball):
     breakout.set_y_velocity(ball, -abs(breakout.get_y_velocity(ball)))
 
-def ball_bounce_off_brick(ball, brick):
-    y_v = breakout.get_y_velocity(ball)
-    breakout.set_y_velocity(ball, -y_v)
 
 # Render all objects on screen using pygame draw methods
 def draw_objects(paddle, ball, bricks):
@@ -58,61 +55,6 @@ def draw_objects(paddle, ball, bricks):
         breakout.draw_rectangle(brick)
     # Tell pygame to actually redraw everything
     pygame.display.flip()
-
-
-# def play(paddle, ball, bricks, start):
-#     running = True
-#     lives = constants.NUM_LIVES
-#     while running:
-#         if lives == 0:
-#             running = False
-
-#         #Setup the keyboard events 
-#         for event in pygame.event.get():     
-#             if pygame.mouse.get_pressed() == (1, 0, 0):
-#                 start = True        
-#             if event.type == pygame.QUIT:
-#                 running = False
-
-#         # Only if start is True you want the ball to be moving. This boolean is used to keep the ball at the centre before the user hits the UP key 
-#         if start:
-#             ball_update_position(ball)
-        
-#         #Update the position of the paddle based on the mouse
-#         paddle_update_position(paddle)
-        
-#         #Check for collisions 
-#         if breakout.ball_did_collide_with(ball, paddle, constants.PADDLE_WIDTH, constants.PADDLE_HEIGHT):
-#             ball_bounce_off_paddle(ball, paddle)
-
-#         # If ball went out of bounds, we lose a life, and start
-#         # with a new ball.
-#         elif (breakout.get_y(ball) > constants.SCREEN_HEIGHT):
-#             lives -= 1
-#             ball = breakout.create_new_ball()
-#             start = False
-
-#         # If bricks are over, you won! 
-#         if len(bricks) == 0:
-#             running = False;
-
-#         # Else, loop through the entire bricks array to see if the ball collided with any brick 
-#         else:
-#             for brick in bricks:
-#                 if  breakout.ball_did_collide_with(ball, brick, constants.BRICK_WIDTH, constants.BRICK_HEIGHT):
-#                     ball_bounce_off_brick(ball, brick)
-#                     bricks.remove(brick)
-
-
-#         # Redraw everything at the end of the while loop
-#         draw_objects(paddle, ball, bricks)
-
-#     pygame.display.update()
-
-#     #Wait for event to exit screen 
-#     event =  pygame.event.wait()
-#     if event.type == pygame.QUIT:
-#         pygame.quit()
 
 
 # The following function will draw the set of bricks at the top of the screen. 
@@ -206,7 +148,3 @@ while running:
 
 pygame.display.update()
 
-#Wait for event to exit screen 
-event =  pygame.event.wait()
-if event.type == pygame.QUIT:
-    pygame.quit()
