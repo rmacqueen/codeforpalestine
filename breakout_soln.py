@@ -41,7 +41,7 @@ def ball_update_position(ball):
         breakout.set_y_velocity(ball, -breakout.get_y_velocity(ball))
 
 def ball_bounce_off(ball):
-    breakout.set_y_velocity(ball, -abs(breakout.get_y_velocity(ball)))
+    breakout.set_y_velocity(ball, -breakout.get_y_velocity(ball))
 
 
 # Render all objects on screen using pygame draw methods
@@ -122,7 +122,7 @@ while running:
     
     #Check for collisions 
     if breakout.ball_did_collide_with(ball, paddle, constants.PADDLE_WIDTH, constants.PADDLE_HEIGHT):
-        ball_bounce_off_paddle(ball, paddle)
+        ball_bounce_off(ball)
 
     # If ball went out of bounds, we lose a life, and start
     # with a new ball.
@@ -139,7 +139,7 @@ while running:
     else:
         for brick in bricks:
             if  breakout.ball_did_collide_with(ball, brick, constants.BRICK_WIDTH, constants.BRICK_HEIGHT):
-                ball_bounce_off_brick(ball, brick)
+                ball_bounce_off(ball)
                 bricks.remove(brick)
 
 
