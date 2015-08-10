@@ -27,20 +27,13 @@ def ball_update_position(ball):
     pass
     #TODO
 
-# This function will change the direction of the ball when it hits the paddle 
-def ball_bounce_off_paddle(ball, paddle):
-    pass
-
-# If we hit a brick, bounce off in the right direction depending on
-# whether we hit the brick from the side or from on top/below
-def ball_bounce_off_brick(ball, brick):
-    # ALWAYS change y direction
+# This function will change the direction of the ball when it hits an object 
+def ball_bounce_off(ball):
     pass
 
 # Render all objects on screen using pygame draw methods
 def draw_objects():
-    # First wipe canvas clean by calling breakout.clear_screen()
-    # TODO
+    breakout.clear_screen()
 
     # Draw the paddle, ball, and wall of bricks
     # TODO
@@ -61,7 +54,7 @@ def build_bricks():
 # Creating the screen 
 breakout.build_screen(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT)
 
-# Create the ball, paddle, bricks and lives here 
+# Create the ball, paddle, and bricks here 
 # TODO
 
 running = True
@@ -89,11 +82,10 @@ while running:
     # Update the position of the paddle based on the mouse
     # TODO 
         
-    # Check for collisions using breakout.ball_did_collide_with(obj, brick, width, height) 
+    # Check for collisions using ball_did_collide_with(ball, obj, width, height) 
     # TODO 
 
-    # If ball went out of bounds, we lose a life, and start
-    # with a new ball.
+    # If ball hits the bottom wall, we lose.
     # TODO 
 
     # If bricks are over, you won! 
